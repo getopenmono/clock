@@ -1,0 +1,10 @@
+unittests: $(BUILD_DIR)/unittests
+	$<
+
+libsources := $(wildcard lib/*.cpp)
+libheaders := $(wildcard lib/*.hpp)
+tests := $(wildcard unittests/*.cpp) $(wildcard unittests/*.hpp)
+
+$(BUILD_DIR)/unittests: $(tests) $(libsources) $(libheaders)
+	-mkdir -p $(BUILD_DIR)
+	g++ -Wall -Wno-unused-result -o $@ -I lib $(filter %.cpp,$^)
