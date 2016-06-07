@@ -6,7 +6,6 @@
 
 using namespace trigonometry;
 
-//using mono::geo::Point;
 using mono::geo::Rect;
 using mono::String;
 using mono::Timer;
@@ -77,10 +76,12 @@ void Dial::drawHoursHand (bool clear)
 
 AppController::AppController ()
 :
+	sleeper(10*60*1000,true),
 	timer(1000),
 	screen(mono::display::BlackColor),
 	timeLabel(Rect(0,15,176,20),"Clock")
 {
+	sleeper.setCallback(mono::IApplicationContext::EnterSleepMode);
 	timeLabel.setAlignment(TextLabelView::ALIGN_CENTER);
 	timeLabel.setTextColor(mono::display::EmeraldColor);
 	timeLabel.setBackgroundColor(mono::display::BlackColor);
@@ -106,6 +107,7 @@ void AppController::monoWillGotoSleep ()
 
 void AppController::start ()
 {
+	sleeper.Start();
 	screen.show();
 	timeLabel.show();
 	timer.setCallback<AppController>(this,&AppController::updateTime);

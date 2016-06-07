@@ -42,6 +42,7 @@ public:
 private:
 	void start ();
 	void updateTime ();
+	mono::Timer sleeper;
 	Dial dial;
 	mono::Timer timer;
 	mono::ui::BackgroundView screen;
